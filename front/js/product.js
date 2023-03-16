@@ -1,14 +1,18 @@
-var str = window.location.href;
-var url = new URL(str);
-var idProduct = url.searchParams.get("id");
+// Stockage de l'url de la page et de l'id du produit dans des varible
+let str = window.location.href;
+let url = new URL(str);
+let idProduct = url.searchParams.get("id");
 
 
 
-//--APPEL À L'API POUR RÉCUPÉRER LES ÉLÉMENTS--
-
+// Cette array vide permet de stocker les données du produits que fournit l'api
 let article = [];
 
 
+// function getArticle utilise fetch pour identifier le produit grâce à l'identifiant trouver dans l'url
+// La deuxième promess transfere les données dans l'array article
+// Puis avec les conditions, on affiche les elements seulement si article contient les données
+// sinon une alert est affiche et renvoie à la page d'acceuil
 function getArticle() {
     fetch("http://localhost:3000/api/products/" + idProduct)
     .then((res) => {
@@ -30,6 +34,7 @@ function getArticle() {
             itemPrice.innerHTML = article.price;
             itemDescription.innerHTML = article.description;
 
+            //Boucle qui nous aide à parcourir les items dans l'objet colors enfin de facilité le choix de l'utilisateur
             /*for (let colors in article.colors) {
         }*/
 
@@ -38,9 +43,11 @@ function getArticle() {
             alert("Something went wrong");
             document.location.href = "index.html";
         } 
-    }) 
+    });
 }
 getArticle();
 
-const quantityChoice = document.querySelector("#quantity");
-const colorsChoice = document.querySelector("#colors");
+//variable permettant au choix de l'utilisateur
+
+/*const quantityChoice = document.querySelector("#quantity");
+const colorsChoice = document.querySelector("#colors");*/
