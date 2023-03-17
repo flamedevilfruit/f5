@@ -55,7 +55,7 @@ function userChoice(article) {
 
     //Si l'utilisateur a choisi un produit
     const addToCard = document.querySelector("#addToCard");
-
+    // un event listener pour ajouter un produit au panier quand l'utilsateur aurait choisi la quantité et la couleur
     addToCard.addEventListener("click", () => {
         if (quantityChoice.value > 0 && quantityChoice.value <= 100) {
             var colorPicked = colorChoice.value;
@@ -89,14 +89,21 @@ function userChoice(article) {
                 }
                 //if(resultaFind)
             }*/
+            // une variable pour rechercher l'index du produit dans la liste en fonction de son ID et son couleur
             const resultaFind = itemsInLocalStorage.find(item => item.idProduct === idProduct && item.productColor === colorPicked);
-            
+            // L'instruction verifie si le resultat trouve une nouvelle quantité dans le panier
+            // si tels est le cas on addition la quantité actuelle avec la nouvelle quantité
+            // ensuite on transforme l'objet en JSON et on le stocke dans le panier
+            //enfin un message de confirmation apparait pour confirmation la mise en panier
             if (resultaFind) {
                 var newQuantity = parseInt(resultaFind.productQuantity) + parseInt(productObj.productQuantity);
                 resultaFind.productQuantity = newQuantity;
                 localStorage.setItem("produit", JSON.stringify(itemsInLocalStorage));
                 confirmationPopup();
                 console.log(resultaFind);
+                // sinon on ajoute le produit au panier
+                // tranformer l'objet en JSON et on le stocke dans le panier
+                // enfin un message de confirmation apparait pour confirmation la mise en panier
             } else {
                 itemsInLocalStorage = [];
                 itemsInLocalStorage.push(productObj);
